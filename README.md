@@ -12,8 +12,8 @@ short-form platforms.
 > **Status: sanitized code sample.** This public repository contains the reusable components of
 > a larger private project. It does **not** include the complete end-to-end planner and rendering
 > pipeline (edit planner, render-spec compiler, critic/revision loop, delivery packaging), or any
-> project data such as media, analysis records or edit plans. Project work made with the full
-> workflow can't be reproduced from this repository alone.
+> project data such as media, analysis records or edit plans. The example videos below show the
+> broader project workflow and can't be reproduced from this repository alone.
 
 ## How the project is used
 
@@ -21,6 +21,20 @@ Claude Code, connected to DaVinci Resolve through its MCP integration, helped ed
 grade footage from longer-form clips and align the edits to the music. Lyrics and hooks were added
 afterward in CapCut for a more platform-native feel. Lyric-overlay rendering is not part of this
 public snapshot.
+
+## Example videos
+
+Three short vertical edits (1080×1920, HEVC .mov, 60 fps, 15–23 s) made with this workflow from longer-form footage:
+
+- [Concert and fireworks edit](examples/concert-fireworks-edit.mov)
+- [Studio-to-concert edit](examples/studio-to-concert-edit.mov)
+- [Artist-led VW bus edit](examples/artist-vw-bus-edit.mov)
+
+HEVC .mov files may not play inline in every browser. Use **View raw** or download the file to watch it.
+
+### Project note for reviewers
+
+> These videos are examples created with the Bali Music Editor from longer-form footage. Claude Code, connected to DaVinci Resolve through its MCP integration, helped edit and color grade the footage and align the edits to the music. I added lyric and hook overlays in CapCut afterward for a more platform-native finish; lyric overlays can also be added within the editor. The public repository is a sanitized code sample of reusable components and does not include the complete end-to-end planner and rendering pipeline.
 
 ## What is in this snapshot
 
