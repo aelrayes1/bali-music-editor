@@ -1,0 +1,569 @@
+{
+  "$id": "https://bali-music-video-editor.local/schemas/music-events-resolved/1.2.0",
+  "title": "Bali resolved music events (Edit Planner input; 1.0.0 Phase 2, 1.1.0 + vocal assist, 1.2.0 + human ground truth)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "enum": [
+        "1.0.0",
+        "1.1.0",
+        "1.2.0"
+      ]
+    },
+    "sourceMediaId": {
+      "type": "string"
+    },
+    "analysis": {
+      "type": "object",
+      "properties": {
+        "analyzerVersion": {
+          "type": "string"
+        },
+        "configHash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "analyzerVersion",
+        "configHash"
+      ],
+      "additionalProperties": false
+    },
+    "sync": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "sha256"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "vocalAssist": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "type": "string"
+        },
+        "cacheKey": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "modelSha256": {
+          "type": "string"
+        },
+        "patternId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "cacheKey",
+        "model",
+        "modelSha256",
+        "patternId"
+      ],
+      "additionalProperties": false
+    },
+    "groundTruth": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "patternId": {
+            "type": "string"
+          },
+          "exhaustive": {
+            "type": "boolean"
+          },
+          "occurrences": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "resolved": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "ambiguous": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "patternId",
+          "exhaustive",
+          "occurrences",
+          "resolved",
+          "ambiguous"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "tierOrder": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "USER_REQUIRED",
+          "STRUCTURAL",
+          "DOWNBEAT",
+          "BEAT",
+          "DETAIL"
+        ]
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "time": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "tier": {
+            "type": "string",
+            "enum": [
+              "USER_REQUIRED",
+              "STRUCTURAL",
+              "DOWNBEAT",
+              "BEAT",
+              "DETAIL"
+            ]
+          },
+          "mandatory": {
+            "type": "boolean"
+          },
+          "label": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "identityStatus": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "CONFIRMED",
+                  "CONFIRMED_BY_SIGNAL",
+                  "HIGH_CONFIDENCE_CANDIDATE",
+                  "NEEDS_HUMAN_CONFIRMATION",
+                  "REJECTED"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "origin": {
+            "type": "string",
+            "enum": [
+              "detected",
+              "user"
+            ]
+          },
+          "detectedEventId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "patternId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "overrideIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "nearestBeatId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "beatOffsetMs": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "vocalAssist": {
+            "type": "object",
+            "properties": {
+              "occurrenceId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "phase2EventId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "phase2Time": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "num": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "den": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "num",
+                      "den"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Exact rational number num/den (normalized)."
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "phase2Status": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "rawWhisperStart": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "num": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "den": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "num",
+                      "den"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Exact rational number num/den (normalized)."
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "rawWhisperEnd": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "num": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "den": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "num",
+                      "den"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Exact rational number num/den (normalized)."
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "refinedSyncTime": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "num": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "den": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "num",
+                      "den"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Exact rational number num/den (normalized)."
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "asrWords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "asrConfidence": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "consensusWindows": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                  "CONFIRMED_BY_SIGNAL",
+                  "HIGH_CONFIDENCE_CANDIDATE",
+                  "NEEDS_HUMAN_CONFIRMATION",
+                  "REJECTED"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "occurrenceId",
+              "phase2EventId",
+              "phase2Time",
+              "phase2Status",
+              "rawWhisperStart",
+              "rawWhisperEnd",
+              "refinedSyncTime",
+              "asrWords",
+              "asrConfidence",
+              "consensusWindows",
+              "state",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "resolutionReason": {
+            "type": "string"
+          },
+          "occurrence": {
+            "type": "object",
+            "properties": {
+              "occurrenceId": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "primary",
+                  "effect_repeat",
+                  "ambiguous_primary",
+                  "other"
+                ]
+              },
+              "syncTarget": {
+                "type": "boolean"
+              },
+              "effectCharacter": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "timingConfidence": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "HIGH",
+                      "MEDIUM",
+                      "LOW"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "humanApproved": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "occurrenceId",
+              "role",
+              "syncTarget",
+              "effectCharacter",
+              "timingConfidence"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "time",
+          "tier",
+          "mandatory",
+          "label",
+          "identityStatus",
+          "confidence",
+          "origin",
+          "detectedEventId",
+          "patternId",
+          "overrideIds",
+          "nearestBeatId",
+          "beatOffsetMs",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "excluded": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "detectedEventId": {
+            "type": "string"
+          },
+          "overrideId": {
+            "type": "string"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "detectedEventId",
+          "overrideId",
+          "note"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "sourceMediaId",
+    "analysis",
+    "sync",
+    "tierOrder",
+    "events",
+    "excluded",
+    "warnings"
+  ],
+  "additionalProperties": false
+}

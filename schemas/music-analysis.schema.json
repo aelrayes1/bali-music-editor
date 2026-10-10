@@ -1,0 +1,1235 @@
+{
+  "$id": "https://bali-music-video-editor.local/schemas/music-analysis/1.0.0",
+  "title": "Bali music analysis (detected)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "generatedAt": {
+      "type": "string"
+    },
+    "analyzer": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "bali-music-intelligence"
+        },
+        "version": {
+          "type": "string"
+        },
+        "configHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{16}$"
+        },
+        "config": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {}
+        },
+        "sampleRate": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "frameSamples": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "hopSamples": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "ffmpeg": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "path",
+            "version"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "configHash",
+        "config",
+        "sampleRate",
+        "frameSamples",
+        "hopSamples",
+        "ffmpeg"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "mediaId": {
+          "type": "string"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "audioStreamIndex": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "fileName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "mediaId",
+        "fingerprint",
+        "audioStreamIndex",
+        "fileName"
+      ],
+      "additionalProperties": false
+    },
+    "durationSeconds": {
+      "type": "object",
+      "properties": {
+        "num": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "den": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "num",
+        "den"
+      ],
+      "additionalProperties": false,
+      "description": "Exact rational number num/den (normalized)."
+    },
+    "tempo": {
+      "type": "object",
+      "properties": {
+        "canonicalBpm": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        },
+        "measuredBpm": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        },
+        "bpmConfidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "beatPeriodSeconds": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        },
+        "gridAnchorSeconds": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        },
+        "snapped": {
+          "type": "boolean"
+        },
+        "snapRule": {
+          "type": "string"
+        },
+        "support": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "residualRmsMs": {
+          "type": "number"
+        },
+        "constantTempo": {
+          "type": "object",
+          "properties": {
+            "isConstant": {
+              "type": "boolean"
+            },
+            "halfDifferencePercent": {
+              "type": "number"
+            },
+            "driftMsPerMinute": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "isConstant",
+            "halfDifferencePercent",
+            "driftMsPerMinute"
+          ],
+          "additionalProperties": false
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bpm": {
+                "type": "number"
+              },
+              "score": {
+                "type": "number"
+              },
+              "f1": {
+                "type": "number"
+              },
+              "relation": {
+                "type": "string",
+                "enum": [
+                  "selected",
+                  "half",
+                  "double",
+                  "other"
+                ]
+              }
+            },
+            "required": [
+              "bpm",
+              "score",
+              "f1",
+              "relation"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "canonicalBpm",
+        "measuredBpm",
+        "bpmConfidence",
+        "beatPeriodSeconds",
+        "gridAnchorSeconds",
+        "snapped",
+        "snapRule",
+        "support",
+        "residualRmsMs",
+        "constantTempo",
+        "candidates"
+      ],
+      "additionalProperties": false
+    },
+    "meter": {
+      "type": "object",
+      "properties": {
+        "beatsPerBar": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "downbeatPhase": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "downbeatConfidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "phraseBars": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "phrasePhaseBars": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "phraseConfidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [
+        "beatsPerBar",
+        "downbeatPhase",
+        "downbeatConfidence",
+        "phraseBars",
+        "phrasePhaseBars",
+        "phraseConfidence"
+      ],
+      "additionalProperties": false
+    },
+    "beats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+          },
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "time": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "sample": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "isDownbeat": {
+            "type": "boolean"
+          },
+          "barIndex": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "beatInBar": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          },
+          "supported": {
+            "type": "boolean"
+          },
+          "onsetOffsetMs": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "kickAccent": {
+            "type": "number"
+          },
+          "kickPulseDb": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "index",
+          "time",
+          "sample",
+          "isDownbeat",
+          "barIndex",
+          "beatInBar",
+          "supported",
+          "onsetOffsetMs",
+          "kickAccent",
+          "kickPulseDb"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "bars": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+          },
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "time": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "sample": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "startBeatId": {
+            "type": "string",
+            "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+          },
+          "energyDb": {
+            "type": "number"
+          },
+          "lowDb": {
+            "type": "number"
+          },
+          "change": {
+            "type": "number"
+          },
+          "energyLevel": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "trend": {
+            "type": "string",
+            "enum": [
+              "rising",
+              "falling",
+              "steady"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "index",
+          "time",
+          "sample",
+          "startBeatId",
+          "energyDb",
+          "lowDb",
+          "change",
+          "energyLevel",
+          "trend"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "phrases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+          },
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "time": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "sample": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "startBarId": {
+            "type": "string",
+            "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+          },
+          "lengthBars": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          },
+          "change": {
+            "type": "number"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "method": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "index",
+          "time",
+          "sample",
+          "startBarId",
+          "lengthBars",
+          "change",
+          "confidence",
+          "method"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+          },
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "start": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "end": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "startBeatId": {
+            "type": "string",
+            "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+          },
+          "label": {
+            "type": "string",
+            "enum": [
+              "intro",
+              "groove",
+              "break",
+              "build",
+              "drop",
+              "outro",
+              "unknown"
+            ]
+          },
+          "energyLevel": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "trend": {
+            "type": "string",
+            "enum": [
+              "rising",
+              "falling",
+              "steady"
+            ]
+          },
+          "meanEnergyDb": {
+            "type": "number"
+          },
+          "meanLowDb": {
+            "type": "number"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "index",
+          "start",
+          "end",
+          "startBeatId",
+          "label",
+          "energyLevel",
+          "trend",
+          "meanEnergyDb",
+          "meanLowDb",
+          "confidence",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "onset",
+              "vocal_attack",
+              "impact",
+              "drop"
+            ]
+          },
+          "time": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "sample": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "strength": {
+            "type": "number"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "method": {
+            "type": "string"
+          },
+          "detail": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nearestBeatId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "beatOffsetMs": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "barIndex": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "beatInBar": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "vocal": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "harmonicity": {
+                    "type": "number"
+                  },
+                  "activityDb": {
+                    "type": "number"
+                  },
+                  "clusterId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "clusterSimilarity": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "harmonicity",
+                  "activityDb",
+                  "clusterId",
+                  "clusterSimilarity"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "time",
+          "sample",
+          "strength",
+          "confidence",
+          "method",
+          "detail",
+          "nearestBeatId",
+          "beatOffsetMs",
+          "barIndex",
+          "beatInBar",
+          "vocal"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "silence",
+              "break",
+              "build",
+              "fill",
+              "vocal_activity"
+            ]
+          },
+          "start": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "end": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "startSample": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "endSample": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "method": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "start",
+          "end",
+          "startSample",
+          "endSample",
+          "confidence",
+          "method",
+          "detail"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "vocal": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string"
+        },
+        "wordIdentification": {
+          "type": "string",
+          "const": "unavailable"
+        },
+        "note": {
+          "type": "string"
+        },
+        "clusters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+              },
+              "windowId": {
+                "type": "string"
+              },
+              "medoidEventId": {
+                "type": "string",
+                "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+              },
+              "memberEventIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z_]+:[0-9a-z._-]+$"
+                }
+              },
+              "meanSimilarity": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "windowId",
+              "medoidEventId",
+              "memberEventIds",
+              "meanSimilarity"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "method",
+        "wordIdentification",
+        "note",
+        "clusters"
+      ],
+      "additionalProperties": false
+    },
+    "curves": {
+      "type": "object",
+      "properties": {
+        "energy": {
+          "type": "object",
+          "properties": {
+            "stepSeconds": {
+              "type": "object",
+              "properties": {
+                "num": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "den": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "num",
+                "den"
+              ],
+              "additionalProperties": false,
+              "description": "Exact rational number num/den (normalized)."
+            },
+            "rmsDbfs": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "lowDb": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "midDb": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "highDb": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "onsetsPerSecond": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "stepSeconds",
+            "rmsDbfs",
+            "lowDb",
+            "midDb",
+            "highDb",
+            "onsetsPerSecond"
+          ],
+          "additionalProperties": false
+        },
+        "loudness": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "const": "ffmpeg-ebur128"
+            },
+            "stepSeconds": {
+              "type": "object",
+              "properties": {
+                "num": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "den": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "num",
+                "den"
+              ],
+              "additionalProperties": false,
+              "description": "Exact rational number num/den (normalized)."
+            },
+            "momentaryLufs": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "shortTermLufs": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "integratedLufs": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "loudnessRangeLu": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "truePeakDbtp": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "method",
+            "stepSeconds",
+            "momentaryLufs",
+            "shortTermLufs",
+            "integratedLufs",
+            "loudnessRangeLu",
+            "truePeakDbtp"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "energy",
+        "loudness"
+      ],
+      "additionalProperties": false
+    },
+    "confidence": {
+      "type": "object",
+      "properties": {
+        "overall": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "overall",
+        "notes"
+      ],
+      "additionalProperties": false
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "analyzer",
+    "source",
+    "durationSeconds",
+    "tempo",
+    "meter",
+    "beats",
+    "bars",
+    "phrases",
+    "sections",
+    "events",
+    "regions",
+    "vocal",
+    "curves",
+    "confidence",
+    "warnings"
+  ],
+  "additionalProperties": false
+}

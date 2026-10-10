@@ -1,0 +1,1704 @@
+{
+  "$id": "https://bali-music-video-editor.local/schemas/footage-analysis/1.0.0",
+  "title": "Bali objective footage analysis (Phase 3, per media)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "generatedAt": {
+      "type": "string"
+    },
+    "analyzer": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "bali-footage-intelligence"
+        },
+        "version": {
+          "type": "string"
+        },
+        "implementation": {
+          "type": "string"
+        },
+        "configHash": {
+          "type": "string"
+        },
+        "config": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {}
+        },
+        "ffmpeg": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "path",
+            "version"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "implementation",
+        "configHash",
+        "config",
+        "ffmpeg"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "mediaId": {
+          "type": "string"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "streamIndex": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "mediaId",
+        "fingerprint",
+        "fileName",
+        "streamIndex"
+      ],
+      "additionalProperties": false
+    },
+    "geometry": {
+      "type": "object",
+      "properties": {
+        "stored": {
+          "type": "object",
+          "properties": {
+            "w": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "h": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "w",
+            "h"
+          ],
+          "additionalProperties": false
+        },
+        "display": {
+          "type": "object",
+          "properties": {
+            "w": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "h": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "w",
+            "h"
+          ],
+          "additionalProperties": false
+        },
+        "rotationClockwise": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "orientation": {
+          "type": "string"
+        },
+        "analysis": {
+          "type": "object",
+          "properties": {
+            "w": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "h": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "w",
+            "h"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "stored",
+        "display",
+        "rotationClockwise",
+        "orientation",
+        "analysis"
+      ],
+      "additionalProperties": false
+    },
+    "timing": {
+      "type": "object",
+      "properties": {
+        "frameCount": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "timeBase": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        },
+        "frameRateMode": {
+          "type": "string"
+        },
+        "firstFrame": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        },
+        "end": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        },
+        "measuredFps": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "frameCount",
+        "timeBase",
+        "frameRateMode",
+        "firstFrame",
+        "end",
+        "measuredFps"
+      ],
+      "additionalProperties": false
+    },
+    "technical": {
+      "type": "object",
+      "properties": {
+        "codec": {
+          "type": "string"
+        },
+        "fieldOrder": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bitsPerPixel": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "activePixelsDisplay": {
+          "type": "object",
+          "properties": {
+            "w": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "h": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "w",
+            "h"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "codec",
+        "fieldOrder",
+        "bitsPerPixel",
+        "activePixelsDisplay"
+      ],
+      "additionalProperties": false
+    },
+    "activePicture": {
+      "type": "object",
+      "properties": {
+        "encodedFrame": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "y": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "w": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "h": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "x",
+            "y",
+            "w",
+            "h"
+          ],
+          "additionalProperties": false
+        },
+        "activeRect": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "y": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "w": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "h": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "x",
+            "y",
+            "w",
+            "h"
+          ],
+          "additionalProperties": false
+        },
+        "borders": {
+          "type": "object",
+          "properties": {
+            "left": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "right": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "top": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "bottom": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "additionalProperties": false
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "full_frame",
+            "pillarbox",
+            "letterbox",
+            "windowbox",
+            "undetermined"
+          ]
+        },
+        "activeAspect": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "stableFraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [
+        "encodedFrame",
+        "activeRect",
+        "borders",
+        "type",
+        "activeAspect",
+        "stableFraction",
+        "confidence"
+      ],
+      "additionalProperties": false
+    },
+    "static": {
+      "type": "object",
+      "properties": {
+        "frozenFraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "identicalFraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "uniqueFrames": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "staticImageVideo": {
+          "type": "boolean"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "freezeRegions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "object",
+                "properties": {
+                  "num": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "den": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "num",
+                  "den"
+                ],
+                "additionalProperties": false,
+                "description": "Exact rational number num/den (normalized)."
+              },
+              "end": {
+                "type": "object",
+                "properties": {
+                  "num": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "den": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "num",
+                  "den"
+                ],
+                "additionalProperties": false,
+                "description": "Exact rational number num/den (normalized)."
+              },
+              "duration": {
+                "type": "object",
+                "properties": {
+                  "num": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "den": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "num",
+                  "den"
+                ],
+                "additionalProperties": false,
+                "description": "Exact rational number num/den (normalized)."
+              },
+              "frames": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "start",
+              "end",
+              "duration",
+              "frames"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "frozenFraction",
+        "identicalFraction",
+        "uniqueFrames",
+        "staticImageVideo",
+        "confidence",
+        "freezeRegions"
+      ],
+      "additionalProperties": false
+    },
+    "overlays": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "graphic",
+              "edge_structure"
+            ]
+          },
+          "location": {
+            "type": "string",
+            "enum": [
+              "picture",
+              "border"
+            ]
+          },
+          "bbox": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "y": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "w": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "h": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "w",
+              "h"
+            ],
+            "additionalProperties": false
+          },
+          "bboxNormalized": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "w": {
+                "type": "number"
+              },
+              "h": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "w",
+              "h"
+            ],
+            "additionalProperties": false
+          },
+          "persistence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "location",
+          "bbox",
+          "bboxNormalized",
+          "persistence",
+          "confidence",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "overlayEvaluable": {
+      "type": "boolean"
+    },
+    "shots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "shotId": {
+            "type": "string",
+            "pattern": "^shot:\\d{4}$"
+          },
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "start": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "end": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "duration": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "frames": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "last": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "count": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "first",
+              "last",
+              "count"
+            ],
+            "additionalProperties": false
+          },
+          "boundaryIn": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "media_start",
+                  "hard_cut",
+                  "fade_through_black"
+                ]
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "evidence": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "confidence",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "representative": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "object",
+                "properties": {
+                  "num": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "den": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "num",
+                  "den"
+                ],
+                "additionalProperties": false,
+                "description": "Exact rational number num/den (normalized)."
+              },
+              "frameIndex": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "time",
+              "frameIndex",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "sharpness": {
+            "type": "object",
+            "properties": {
+              "mean": {
+                "type": "number"
+              },
+              "p10": {
+                "type": "number"
+              },
+              "p50": {
+                "type": "number"
+              },
+              "p90": {
+                "type": "number"
+              },
+              "scale": {
+                "type": "string",
+                "const": "laplacian variance at analysis resolution"
+              }
+            },
+            "required": [
+              "mean",
+              "p10",
+              "p50",
+              "p90",
+              "scale"
+            ],
+            "additionalProperties": false
+          },
+          "exposure": {
+            "type": "object",
+            "properties": {
+              "meanLuma": {
+                "type": "number"
+              },
+              "p05": {
+                "type": "number"
+              },
+              "p50": {
+                "type": "number"
+              },
+              "p95": {
+                "type": "number"
+              },
+              "dynamicRange": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "meanLuma",
+              "p05",
+              "p50",
+              "p95",
+              "dynamicRange"
+            ],
+            "additionalProperties": false
+          },
+          "clipping": {
+            "type": "object",
+            "properties": {
+              "highlightFraction": {
+                "type": "object",
+                "properties": {
+                  "mean": {
+                    "type": "number"
+                  },
+                  "p10": {
+                    "type": "number"
+                  },
+                  "p50": {
+                    "type": "number"
+                  },
+                  "p90": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "mean",
+                  "p10",
+                  "p50",
+                  "p90"
+                ],
+                "additionalProperties": false
+              },
+              "shadowFraction": {
+                "type": "object",
+                "properties": {
+                  "mean": {
+                    "type": "number"
+                  },
+                  "p10": {
+                    "type": "number"
+                  },
+                  "p50": {
+                    "type": "number"
+                  },
+                  "p90": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "mean",
+                  "p10",
+                  "p50",
+                  "p90"
+                ],
+                "additionalProperties": false
+              },
+              "framesHighlightClipped": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "framesShadowCrushed": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "highlightFraction",
+              "shadowFraction",
+              "framesHighlightClipped",
+              "framesShadowCrushed"
+            ],
+            "additionalProperties": false
+          },
+          "motion": {
+            "type": "object",
+            "properties": {
+              "globalSpeed": {
+                "type": "object",
+                "properties": {
+                  "mean": {
+                    "type": "number"
+                  },
+                  "p10": {
+                    "type": "number"
+                  },
+                  "p50": {
+                    "type": "number"
+                  },
+                  "p90": {
+                    "type": "number"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "const": "frame widths per second"
+                  }
+                },
+                "required": [
+                  "mean",
+                  "p10",
+                  "p50",
+                  "p90",
+                  "unit"
+                ],
+                "additionalProperties": false
+              },
+              "meanDirection": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
+                ],
+                "additionalProperties": false
+              },
+              "directionalConsistency": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "frameChange": {
+                "type": "object",
+                "properties": {
+                  "mean": {
+                    "type": "number"
+                  },
+                  "p10": {
+                    "type": "number"
+                  },
+                  "p50": {
+                    "type": "number"
+                  },
+                  "p90": {
+                    "type": "number"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "const": "mean abs luma diff per frame (0-255)"
+                  }
+                },
+                "required": [
+                  "mean",
+                  "p10",
+                  "p50",
+                  "p90",
+                  "unit"
+                ],
+                "additionalProperties": false
+              },
+              "localChange": {
+                "type": "object",
+                "properties": {
+                  "mean": {
+                    "type": "number"
+                  },
+                  "p10": {
+                    "type": "number"
+                  },
+                  "p50": {
+                    "type": "number"
+                  },
+                  "p90": {
+                    "type": "number"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "const": "motion-compensated mean abs luma diff (0-255)"
+                  }
+                },
+                "required": [
+                  "mean",
+                  "p10",
+                  "p50",
+                  "p90",
+                  "unit"
+                ],
+                "additionalProperties": false
+              },
+              "lowMotionFraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "highMotionFraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "globalSpeed",
+              "meanDirection",
+              "directionalConsistency",
+              "frameChange",
+              "localChange",
+              "lowMotionFraction",
+              "highMotionFraction"
+            ],
+            "additionalProperties": false
+          },
+          "stability": {
+            "type": "object",
+            "properties": {
+              "jitterRms": {
+                "type": "number"
+              },
+              "unit": {
+                "type": "string",
+                "const": "percent of frame width per frame"
+              },
+              "class": {
+                "type": "string",
+                "enum": [
+                  "stable",
+                  "moderate",
+                  "shaky",
+                  "undetermined"
+                ]
+              }
+            },
+            "required": [
+              "jitterRms",
+              "unit",
+              "class"
+            ],
+            "additionalProperties": false
+          },
+          "activePicture": {
+            "type": "object",
+            "properties": {
+              "encodedFrame": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "y": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "w": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "h": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "x",
+                  "y",
+                  "w",
+                  "h"
+                ],
+                "additionalProperties": false
+              },
+              "activeRect": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "y": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "w": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "h": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "x",
+                  "y",
+                  "w",
+                  "h"
+                ],
+                "additionalProperties": false
+              },
+              "borders": {
+                "type": "object",
+                "properties": {
+                  "left": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "right": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "top": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "bottom": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "left",
+                  "right",
+                  "top",
+                  "bottom"
+                ],
+                "additionalProperties": false
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "full_frame",
+                  "pillarbox",
+                  "letterbox",
+                  "windowbox",
+                  "undetermined"
+                ]
+              },
+              "activeAspect": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "stableFraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "encodedFrame",
+              "activeRect",
+              "borders",
+              "type",
+              "activeAspect",
+              "stableFraction",
+              "confidence"
+            ],
+            "additionalProperties": false
+          },
+          "static": {
+            "type": "object",
+            "properties": {
+              "frozenFraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "identicalFraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "freezeRegions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "object",
+                      "properties": {
+                        "num": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "den": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "num",
+                        "den"
+                      ],
+                      "additionalProperties": false,
+                      "description": "Exact rational number num/den (normalized)."
+                    },
+                    "end": {
+                      "type": "object",
+                      "properties": {
+                        "num": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "den": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "num",
+                        "den"
+                      ],
+                      "additionalProperties": false,
+                      "description": "Exact rational number num/den (normalized)."
+                    },
+                    "duration": {
+                      "type": "object",
+                      "properties": {
+                        "num": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "den": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "num",
+                        "den"
+                      ],
+                      "additionalProperties": false,
+                      "description": "Exact rational number num/den (normalized)."
+                    },
+                    "frames": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "start",
+                    "end",
+                    "duration",
+                    "frames"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "frozenFraction",
+              "identicalFraction",
+              "freezeRegions"
+            ],
+            "additionalProperties": false
+          },
+          "black": {
+            "type": "object",
+            "properties": {
+              "fraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "regions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "object",
+                      "properties": {
+                        "num": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "den": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "num",
+                        "den"
+                      ],
+                      "additionalProperties": false,
+                      "description": "Exact rational number num/den (normalized)."
+                    },
+                    "end": {
+                      "type": "object",
+                      "properties": {
+                        "num": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "den": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "num",
+                        "den"
+                      ],
+                      "additionalProperties": false,
+                      "description": "Exact rational number num/den (normalized)."
+                    },
+                    "duration": {
+                      "type": "object",
+                      "properties": {
+                        "num": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "den": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "num",
+                        "den"
+                      ],
+                      "additionalProperties": false,
+                      "description": "Exact rational number num/den (normalized)."
+                    },
+                    "frames": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "start",
+                    "end",
+                    "duration",
+                    "frames"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "fraction",
+              "regions"
+            ],
+            "additionalProperties": false
+          },
+          "usable": {
+            "type": "object",
+            "properties": {
+              "seconds": {
+                "type": "object",
+                "properties": {
+                  "num": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "den": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "num",
+                  "den"
+                ],
+                "additionalProperties": false,
+                "description": "Exact rational number num/den (normalized)."
+              },
+              "fraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "rule": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "seconds",
+              "fraction",
+              "rule"
+            ],
+            "additionalProperties": false
+          },
+          "overlayIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "crop916": {
+            "type": "object",
+            "properties": {
+              "cropWidth": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "fitsInActivePicture": {
+                "type": "boolean"
+              },
+              "centeredCropOverlapsOverlay": {
+                "type": "boolean"
+              },
+              "detailCentroidX": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "cropWidth",
+              "fitsInActivePicture",
+              "centeredCropOverlapsOverlay",
+              "detailCentroidX"
+            ],
+            "additionalProperties": false
+          },
+          "dHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{16}$"
+          },
+          "nearDuplicates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "mediaId": {
+                  "type": "string"
+                },
+                "shotId": {
+                  "type": "string"
+                },
+                "hamming": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "mediaId",
+                "shotId",
+                "hamming"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "shotId",
+          "index",
+          "start",
+          "end",
+          "duration",
+          "frames",
+          "boundaryIn",
+          "representative",
+          "sharpness",
+          "exposure",
+          "clipping",
+          "motion",
+          "stability",
+          "activePicture",
+          "static",
+          "black",
+          "usable",
+          "overlayIds",
+          "crop916",
+          "dHash",
+          "nearDuplicates",
+          "warnings",
+          "confidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "suppressedBoundaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "frame": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "time",
+          "frame",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "analyzer",
+    "source",
+    "geometry",
+    "timing",
+    "technical",
+    "activePicture",
+    "static",
+    "overlays",
+    "overlayEvaluable",
+    "shots",
+    "suppressedBoundaries",
+    "warnings"
+  ],
+  "additionalProperties": false
+}

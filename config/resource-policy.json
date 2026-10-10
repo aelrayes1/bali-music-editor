@@ -1,0 +1,5 @@
+{
+  "mediaFloorGiB": 30,
+  "warnGiB": 32,
+  "cacheReportGiB": 5
+}

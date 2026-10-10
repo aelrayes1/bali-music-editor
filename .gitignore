@@ -1,0 +1,92 @@
+# Dependencies / build output
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Secrets and machine-local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*
+secrets*
+config/*.local.json
+config/sources.local.json
+.mcp.json
+.claude/
+
+# Project data, generated analysis, working media, renders and caches (supplied locally, never versioned)
+projects/
+deliveries/
+style/bali/
+analysis/
+cache/
+.cache/
+proxies/
+renders/
+output/
+out/
+tmp/
+temp/
+*.tmp
+*.partial
+
+# Media files anywhere
+*.mov
+*.MOV
+*.mp4
+*.m4v
+*.mkv
+*.webm
+*.avi
+*.mxf
+*.wav
+*.aif
+*.aiff
+*.mp3
+*.m4a
+*.aac
+*.flac
+*.ogg
+*.opus
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.exr
+*.dpx
+*.drp
+*.drt
+*.drx
+*.trf
+
+# Local models and tools built from source (whisper.cpp, Swift helpers)
+models/
+*.onnx
+*.pt
+*.bin
+*.safetensors
+.huggingface/
+tools/
+
+# DaVinci Resolve MCP runtime state and logs
+.resolve-mcp/
+
+# Python tooling
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+*.log

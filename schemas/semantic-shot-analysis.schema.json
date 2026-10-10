@@ -1,0 +1,1042 @@
+{
+  "$id": "https://bali-music-video-editor.local/schemas/semantic-shot-analysis/1.0.0",
+  "title": "Bali semantic shot analysis (Phase 3B, per media; model-derived)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "generatedAt": {
+      "type": "string"
+    },
+    "mediaId": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "type": "string"
+        },
+        "framework": {
+          "type": "string"
+        },
+        "toolSha256": {
+          "type": "string"
+        },
+        "osBuild": {
+          "type": "string"
+        },
+        "visionCacheKey": {
+          "type": "string"
+        },
+        "phase3": {
+          "type": "object",
+          "properties": {
+            "analyzerVersion": {
+              "type": "string"
+            },
+            "implementation": {
+              "type": "string"
+            },
+            "configHash": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "analyzerVersion",
+            "implementation",
+            "configHash"
+          ],
+          "additionalProperties": false
+        },
+        "semanticVersion": {
+          "type": "string"
+        },
+        "implementation": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tool",
+        "framework",
+        "toolSha256",
+        "osBuild",
+        "visionCacheKey",
+        "phase3",
+        "semanticVersion",
+        "implementation"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "collection": {
+          "type": "string"
+        },
+        "archival": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "boolean"
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "evidence": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value",
+            "confidence",
+            "evidence"
+          ],
+          "additionalProperties": false
+        },
+        "musicVideoEditing": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "boolean"
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "evidence": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value",
+            "confidence",
+            "evidence"
+          ],
+          "additionalProperties": false
+        },
+        "staticImageVideo": {
+          "type": "boolean"
+        },
+        "display": {
+          "type": "object",
+          "properties": {
+            "w": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "h": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "w",
+            "h"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "collection",
+        "archival",
+        "musicVideoEditing",
+        "staticImageVideo",
+        "display"
+      ],
+      "additionalProperties": false
+    },
+    "shots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "mediaId": {
+            "type": "string"
+          },
+          "shotId": {
+            "type": "string"
+          },
+          "start": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "end": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "samples": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "frameIndex": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "time": {
+                  "type": "object",
+                  "properties": {
+                    "num": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "den": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "num",
+                    "den"
+                  ],
+                  "additionalProperties": false,
+                  "description": "Exact rational number num/den (normalized)."
+                },
+                "position": {
+                  "type": "number"
+                },
+                "representative": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "frameIndex",
+                "time",
+                "position",
+                "representative"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "subject": {
+            "type": "object",
+            "properties": {
+              "presence": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "enum": [
+                      "none",
+                      "single",
+                      "pair",
+                      "small_group",
+                      "group",
+                      "crowd",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "evidence": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              },
+              "personCount": {
+                "type": "object",
+                "properties": {
+                  "median": {
+                    "type": "number"
+                  },
+                  "max": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "median",
+                  "max"
+                ],
+                "additionalProperties": false
+              },
+              "primaryBox": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      },
+                      "w": {
+                        "type": "number"
+                      },
+                      "h": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "x",
+                      "y",
+                      "w",
+                      "h"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "identity": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "note": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value",
+                  "note"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "presence",
+              "personCount",
+              "primaryBox",
+              "identity"
+            ],
+            "additionalProperties": false
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "confidence": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "evidence": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "confidence",
+                "evidence"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "context": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "confidence": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "evidence": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "confidence",
+                "evidence"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "framing": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "enum": [
+                  "extreme_close_up",
+                  "close_up",
+                  "medium_close_up",
+                  "medium",
+                  "medium_wide",
+                  "wide",
+                  "extreme_wide",
+                  "unknown"
+                ]
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "evidence": {
+                "type": "string"
+              },
+              "perSample": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "extreme_close_up",
+                    "close_up",
+                    "medium_close_up",
+                    "medium",
+                    "medium_wide",
+                    "wide",
+                    "extreme_wide",
+                    "unknown"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value",
+              "confidence",
+              "evidence",
+              "perSample"
+            ],
+            "additionalProperties": false
+          },
+          "subjectOrientation": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "enum": [
+                  "front",
+                  "three_quarter",
+                  "profile",
+                  "back",
+                  "mixed",
+                  "unknown"
+                ]
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "evidence": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "confidence",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "subjectMotion": {
+            "type": "object",
+            "properties": {
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "evidence": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "confidence",
+                    "evidence"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "screenDirection": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "enum": [
+                      "left_to_right",
+                      "right_to_left",
+                      "toward_camera",
+                      "away_from_camera",
+                      "none",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "evidence": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "labels",
+              "screenDirection"
+            ],
+            "additionalProperties": false
+          },
+          "cameraMotion": {
+            "type": "object",
+            "properties": {
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "evidence": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "confidence",
+                    "evidence"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "direction": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "labels",
+              "direction"
+            ],
+            "additionalProperties": false
+          },
+          "features": {
+            "type": "object",
+            "properties": {
+              "subjectClarity": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "score",
+                  "reasons"
+                ],
+                "additionalProperties": false
+              },
+              "semanticInterest": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "score",
+                  "reasons"
+                ],
+                "additionalProperties": false
+              },
+              "technicalQuality": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "score",
+                  "reasons"
+                ],
+                "additionalProperties": false
+              },
+              "heroPotential": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "score",
+                  "reasons"
+                ],
+                "additionalProperties": false
+              },
+              "openingPotential": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "score",
+                  "reasons"
+                ],
+                "additionalProperties": false
+              },
+              "dropPotential": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "score",
+                  "reasons"
+                ],
+                "additionalProperties": false
+              },
+              "transitionPotential": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "score",
+                  "reasons"
+                ],
+                "additionalProperties": false
+              },
+              "loopPotential": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "score",
+                  "reasons"
+                ],
+                "additionalProperties": false
+              },
+              "cropPotential9x16": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "nativeVertical": {
+                    "type": "boolean"
+                  },
+                  "cropWidth": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "centerPath": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "object",
+                          "properties": {
+                            "num": {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            "den": {
+                              "type": "integer",
+                              "exclusiveMinimum": 0,
+                              "maximum": 9007199254740991
+                            }
+                          },
+                          "required": [
+                            "num",
+                            "den"
+                          ],
+                          "additionalProperties": false,
+                          "description": "Exact rational number num/den (normalized)."
+                        },
+                        "centerX": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "centerX"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "difficulty": {
+                    "type": "string",
+                    "enum": [
+                      "none",
+                      "easy",
+                      "moderate",
+                      "hard",
+                      "not_applicable"
+                    ]
+                  },
+                  "risks": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "subject_clipping",
+                        "watermark_intrusion",
+                        "insufficient_resolution",
+                        "context_outside_crop",
+                        "no_subject"
+                      ]
+                    }
+                  },
+                  "upscaleFactor": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "score",
+                  "reasons",
+                  "nativeVertical",
+                  "cropWidth",
+                  "centerPath",
+                  "difficulty",
+                  "risks",
+                  "upscaleFactor"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "subjectClarity",
+              "semanticInterest",
+              "technicalQuality",
+              "heroPotential",
+              "openingPotential",
+              "dropPotential",
+              "transitionPotential",
+              "loopPotential",
+              "cropPotential9x16"
+            ],
+            "additionalProperties": false
+          },
+          "embedding": {
+            "type": "string"
+          },
+          "phase3": {
+            "type": "object",
+            "properties": {
+              "staticImageVideo": {
+                "type": "boolean"
+              },
+              "boundaryInConfidence": {
+                "type": "number"
+              },
+              "overlayIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "nearDuplicateShotIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "staticImageVideo",
+              "boundaryInConfidence",
+              "overlayIds",
+              "nearDuplicateShotIds"
+            ],
+            "additionalProperties": false
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "mediaId",
+          "shotId",
+          "start",
+          "end",
+          "samples",
+          "subject",
+          "content",
+          "context",
+          "framing",
+          "subjectOrientation",
+          "subjectMotion",
+          "cameraMotion",
+          "features",
+          "embedding",
+          "phase3",
+          "warnings"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "takes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "takeId": {
+            "type": "string"
+          },
+          "shotIds": {
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "relation": {
+            "type": "string",
+            "enum": [
+              "LIGHTING_EVENT_SAME_TAKE",
+              "SAME_TAKE"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "takeId",
+          "shotIds",
+          "relation",
+          "confidence",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "mediaId",
+    "provenance",
+    "source",
+    "shots",
+    "takes",
+    "warnings"
+  ],
+  "additionalProperties": false
+}

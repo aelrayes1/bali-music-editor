@@ -1,0 +1,36 @@
+{
+  "name": "bali-music-video-editor",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Bali AI Music Video Editor (v5): deterministic media foundation, Edit Plan/EDL, adapters.",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test \"tests/unit/**/*.test.ts\"",
+    "test:acceptance": "node --test --test-concurrency=1 \"tests/acceptance/**/*.test.ts\"",
+    "test:all": "npm run typecheck && npm test && npm run test:acceptance",
+    "test:fast": "npm run typecheck && npm test && BALI_TIER=fast node --test --test-concurrency=1 tests/acceptance/doctor.test.ts tests/acceptance/footage-synthetic.test.ts tests/acceptance/hardening-media.test.ts tests/acceptance/music-cache.test.ts tests/acceptance/music-synthetic.test.ts tests/acceptance/synthetic.test.ts",
+    "ingest": "node src/cli/ingest.ts",
+    "contact-sheet": "node src/cli/contact-sheet.ts",
+    "schema:export": "node src/cli/export-schema.ts",
+    "analyze-music": "node src/cli/analyze-music.ts",
+    "transcribe-vocals": "node src/cli/transcribe-vocals.ts",
+    "analyze-footage": "node src/cli/analyze-footage.ts",
+    "build:vision": "mkdir -p tools/vision-shots && swiftc -O native/vision-shots/main.swift -o tools/vision-shots/vision-shots",
+    "build:subject-masks": "mkdir -p tools/subject-masks && swiftc -O native/subject-masks/main.swift -o tools/subject-masks/subject-masks",
+    "analyze-semantics": "node src/cli/analyze-semantics.ts",
+    "style": "node src/cli/style.ts",
+    "doctor": "node src/cli/doctor.ts",
+    "review-package": "node src/cli/review-package.ts"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.0",
+    "typescript": "~5.9"
+  }
+}

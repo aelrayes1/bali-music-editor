@@ -1,0 +1,1453 @@
+{
+  "$id": "https://bali-music-video-editor.local/schemas/media-manifest/1.0.0",
+  "title": "Bali media manifest",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "generatedAt": {
+      "type": "string"
+    },
+    "generator": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "bali-media-foundation"
+        },
+        "version": {
+          "type": "string"
+        },
+        "ffprobe": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "path",
+            "version"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "ffprobe"
+      ],
+      "additionalProperties": false
+    },
+    "sourceRoots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "path"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "byStatus": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "byKind": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "required": [
+        "total",
+        "byStatus",
+        "byKind"
+      ],
+      "additionalProperties": false
+    },
+    "media": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "mediaId": {
+            "type": "string",
+            "pattern": "^m_[0-9a-f]{16}(-dup-[0-9a-f]{8})?$"
+          },
+          "contentFingerprint": {
+            "type": "object",
+            "properties": {
+              "algorithm": {
+                "type": "string",
+                "const": "sha256-sampled-v1"
+              },
+              "value": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            },
+            "required": [
+              "algorithm",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "fullSha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "duplicateOf": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "rootId": {
+                "type": "string"
+              },
+              "relativePath": {
+                "type": "string"
+              },
+              "absolutePath": {
+                "type": "string"
+              },
+              "fileName": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "sizeBytes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "modifiedAt": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "rootId",
+              "relativePath",
+              "absolutePath",
+              "fileName",
+              "extension",
+              "sizeBytes",
+              "modifiedAt"
+            ],
+            "additionalProperties": false
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "video",
+              "audio",
+              "unknown"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "UNSUPPORTED",
+              "NO_VIDEO_STREAM",
+              "NO_AUDIO_STREAM",
+              "AUDIO_ONLY",
+              "ATTACHED_PICTURE_ONLY",
+              "MALFORMED",
+              "READ_FAILED",
+              "DECODE_FAILED",
+              "METADATA_INCONSISTENT"
+            ]
+          },
+          "statusDetail": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "VARIABLE_FRAME_RATE",
+                    "NOMINAL_AVERAGE_RATE_MISMATCH",
+                    "FRAME_COUNT_MISMATCH",
+                    "FRAME_COUNT_UNAVAILABLE",
+                    "ROTATION_METADATA",
+                    "NON_SQUARE_PIXELS",
+                    "ATTACHED_PICTURE_PRESENT",
+                    "STILL_IMAGE_STREAM",
+                    "MULTIPLE_VIDEO_STREAMS",
+                    "MULTIPLE_AUDIO_STREAMS",
+                    "NO_AUDIO",
+                    "DURATION_MISMATCH",
+                    "DURATION_UNKNOWN",
+                    "FRAME_RATE_UNKNOWN",
+                    "UNKNOWN_SAMPLE_ASPECT_RATIO",
+                    "DECODE_WARNINGS",
+                    "DUPLICATE_CONTENT",
+                    "INTERLACED",
+                    "HDR_TRANSFER"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "streamIndex": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "code",
+                "message",
+                "streamIndex"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "container": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "formatName": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "formatLongName": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "durationSeconds": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "den": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "num",
+                          "den"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Exact rational number num/den (normalized)."
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "startTimeSeconds": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "den": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "num",
+                          "den"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Exact rational number num/den (normalized)."
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "bitRate": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "formatName",
+                  "formatLongName",
+                  "durationSeconds",
+                  "startTimeSeconds",
+                  "bitRate"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "creation": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "timeSource": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "make": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "model": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "software": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "encoder": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "time",
+              "timeSource",
+              "make",
+              "model",
+              "software",
+              "encoder"
+            ],
+            "additionalProperties": false
+          },
+          "streams": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "codecType": {
+                  "type": "string"
+                },
+                "codecName": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "footage",
+                    "attachedPicture",
+                    "stillImage",
+                    "audio",
+                    "subtitle",
+                    "data",
+                    "attachment",
+                    "unknown"
+                  ]
+                },
+                "isDefault": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "index",
+                "codecType",
+                "codecName",
+                "role",
+                "isDefault"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "video": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "streamIndex": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "codec": {
+                    "type": "string"
+                  },
+                  "codecLongName": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "codecProfile": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "pixelFormat": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "bitsPerRawSample": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "fieldOrder": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "storedWidth": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "storedHeight": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "codedWidth": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "codedHeight": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "sampleAspectRatio": {
+                    "type": "object",
+                    "properties": {
+                      "num": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "den": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "num",
+                      "den"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Exact rational number num/den (normalized)."
+                  },
+                  "sampleAspectRatioKnown": {
+                    "type": "boolean"
+                  },
+                  "rotation": {
+                    "type": "object",
+                    "properties": {
+                      "displayMatrixDegrees": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "tagDegrees": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "clockwiseToDisplay": {
+                        "anyOf": [
+                          {
+                            "type": "number",
+                            "const": 0
+                          },
+                          {
+                            "type": "number",
+                            "const": 90
+                          },
+                          {
+                            "type": "number",
+                            "const": 180
+                          },
+                          {
+                            "type": "number",
+                            "const": 270
+                          }
+                        ]
+                      },
+                      "source": {
+                        "type": "string",
+                        "enum": [
+                          "displayMatrix",
+                          "tag",
+                          "none"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "displayMatrixDegrees",
+                      "tagDegrees",
+                      "clockwiseToDisplay",
+                      "source"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "displayWidth": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "displayHeight": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "displayAspectRatio": {
+                    "type": "object",
+                    "properties": {
+                      "num": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "den": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "num",
+                      "den"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Exact rational number num/den (normalized)."
+                  },
+                  "orientation": {
+                    "type": "string",
+                    "enum": [
+                      "landscape",
+                      "portrait",
+                      "square"
+                    ]
+                  },
+                  "timeBase": {
+                    "type": "object",
+                    "properties": {
+                      "num": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "den": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "num",
+                      "den"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Exact rational number num/den (normalized)."
+                  },
+                  "startTimeSeconds": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "den": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "num",
+                          "den"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Exact rational number num/den (normalized)."
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "durationSeconds": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "den": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "num",
+                          "den"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Exact rational number num/den (normalized)."
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "nominalFrameRate": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "den": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "num",
+                          "den"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Exact rational number num/den (normalized)."
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "averageFrameRate": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "den": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "num",
+                          "den"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Exact rational number num/den (normalized)."
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "measuredFrameRate": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "den": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "num",
+                          "den"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Exact rational number num/den (normalized)."
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "frameRateMode": {
+                    "type": "object",
+                    "properties": {
+                      "classification": {
+                        "type": "string",
+                        "enum": [
+                          "CFR",
+                          "VFR",
+                          "UNKNOWN"
+                        ]
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "packetTimestamps",
+                          "rateFieldsOnly",
+                          "none"
+                        ]
+                      },
+                      "packetCount": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      "minFrameDurationTicks": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "maxFrameDurationTicks": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "meanFrameDurationTicks": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "num": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              "den": {
+                                "type": "integer",
+                                "exclusiveMinimum": 0,
+                                "maximum": 9007199254740991
+                              }
+                            },
+                            "required": [
+                              "num",
+                              "den"
+                            ],
+                            "additionalProperties": false,
+                            "description": "Exact rational number num/den (normalized)."
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "distinctFrameDurations": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      "deviatingIntervalFraction": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "num": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              "den": {
+                                "type": "integer",
+                                "exclusiveMinimum": 0,
+                                "maximum": 9007199254740991
+                              }
+                            },
+                            "required": [
+                              "num",
+                              "den"
+                            ],
+                            "additionalProperties": false,
+                            "description": "Exact rational number num/den (normalized)."
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "toleranceTicks": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "num": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              "den": {
+                                "type": "integer",
+                                "exclusiveMinimum": 0,
+                                "maximum": 9007199254740991
+                              }
+                            },
+                            "required": [
+                              "num",
+                              "den"
+                            ],
+                            "additionalProperties": false,
+                            "description": "Exact rational number num/den (normalized)."
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "classification",
+                      "method",
+                      "packetCount",
+                      "minFrameDurationTicks",
+                      "maxFrameDurationTicks",
+                      "meanFrameDurationTicks",
+                      "distinctFrameDurations",
+                      "deviatingIntervalFraction",
+                      "toleranceTicks"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "frameCount": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "source": {
+                        "type": "string",
+                        "enum": [
+                          "packetCount",
+                          "containerNbFrames",
+                          "unavailable"
+                        ]
+                      },
+                      "reliable": {
+                        "type": "boolean"
+                      },
+                      "containerNbFrames": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "source",
+                      "reliable",
+                      "containerNbFrames"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "bitRate": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "type": "object",
+                    "properties": {
+                      "range": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "space": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "transfer": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "primaries": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "chromaLocation": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "hdrTransfer": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "range",
+                      "space",
+                      "transfer",
+                      "primaries",
+                      "chromaLocation",
+                      "hdrTransfer"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "isAttachedPicture": {
+                    "type": "boolean",
+                    "const": false
+                  },
+                  "isFootage": {
+                    "type": "boolean",
+                    "const": true
+                  }
+                },
+                "required": [
+                  "streamIndex",
+                  "codec",
+                  "codecLongName",
+                  "codecProfile",
+                  "pixelFormat",
+                  "bitsPerRawSample",
+                  "fieldOrder",
+                  "storedWidth",
+                  "storedHeight",
+                  "codedWidth",
+                  "codedHeight",
+                  "sampleAspectRatio",
+                  "sampleAspectRatioKnown",
+                  "rotation",
+                  "displayWidth",
+                  "displayHeight",
+                  "displayAspectRatio",
+                  "orientation",
+                  "timeBase",
+                  "startTimeSeconds",
+                  "durationSeconds",
+                  "nominalFrameRate",
+                  "averageFrameRate",
+                  "measuredFrameRate",
+                  "frameRateMode",
+                  "frameCount",
+                  "bitRate",
+                  "color",
+                  "isAttachedPicture",
+                  "isFootage"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "audio": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "streamIndex": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "codec": {
+                    "type": "string"
+                  },
+                  "codecLongName": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "codecProfile": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sampleRate": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "channels": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "channelLayout": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sampleFormat": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "bitsPerSample": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "bitRate": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "timeBase": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "den": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "num",
+                          "den"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Exact rational number num/den (normalized)."
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "startTimeSeconds": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "den": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "num",
+                          "den"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Exact rational number num/den (normalized)."
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "durationSeconds": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "den": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "num",
+                          "den"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Exact rational number num/den (normalized)."
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "streamIndex",
+                  "codec",
+                  "codecLongName",
+                  "codecProfile",
+                  "sampleRate",
+                  "channels",
+                  "channelLayout",
+                  "sampleFormat",
+                  "bitsPerSample",
+                  "bitRate",
+                  "timeBase",
+                  "startTimeSeconds",
+                  "durationSeconds"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "attachedPictures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "streamIndex": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "codec": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "width": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "height": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "attachedPicture",
+                    "stillImage"
+                  ]
+                }
+              },
+              "required": [
+                "streamIndex",
+                "codec",
+                "width",
+                "height",
+                "role"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "hasAudio": {
+            "type": "boolean"
+          },
+          "isPlayableVideoFootage": {
+            "type": "boolean"
+          },
+          "decodeCheck": {
+            "type": "object",
+            "properties": {
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "sampled",
+                  "skipped"
+                ]
+              },
+              "ok": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "messages": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "mode",
+              "ok",
+              "messages"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "mediaId",
+          "contentFingerprint",
+          "fullSha256",
+          "duplicateOf",
+          "source",
+          "kind",
+          "status",
+          "statusDetail",
+          "warnings",
+          "container",
+          "creation",
+          "streams",
+          "video",
+          "audio",
+          "attachedPictures",
+          "hasAudio",
+          "isPlayableVideoFootage",
+          "decodeCheck"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "generator",
+    "sourceRoots",
+    "summary",
+    "media"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,80 @@
+{
+  "note": "Synthetic future Bali project (fixture only; not a real project, never rendered). Demonstrates that stored Bali style guides recommendations while current instructions, hard constraints and technical QC win, project-specific taste does not leak, and contradictions are handled.",
+  "projectId": "fixture-rooftop-nightlife",
+  "requests": [
+    {
+      "id": "general-taste",
+      "title": "General Bali taste steers a restrained, musically motivated choice",
+      "request": {
+        "projectId": "fixture-rooftop-nightlife", "topic": "fx.proposal", "question": "Treatment for vocal hit #2",
+        "context": { "role": "hit", "payoffImportant": true },
+        "options": [
+          { "id": "glitch-every-hit", "label": "strong RGB glitch on every vocal hit", "properties": { "effect": "rgbGlitch", "fxIntensityRank": 3, "musicallyMotivated": false, "templatedAcrossHits": true, "authenticFootage": true } },
+          { "id": "subtle-punch", "label": "subtle camera punch on the vocal hit", "properties": { "effect": "cameraPunch", "fxIntensityRank": 1, "musicallyMotivated": true, "templatedAcrossHits": false, "authenticFootage": true } }
+        ],
+        "humanInstructions": [], "hardConstraints": [], "technical": []
+      }
+    },
+    {
+      "id": "human-instruction-wins",
+      "title": "A current human instruction beats stored taste",
+      "request": {
+        "projectId": "fixture-rooftop-nightlife", "topic": "fx.proposal", "question": "Treatment for vocal hit #2",
+        "context": { "role": "hit", "payoffImportant": true },
+        "options": [
+          { "id": "glitch-every-hit", "label": "strong RGB glitch on every vocal hit", "properties": { "effect": "rgbGlitch", "fxIntensityRank": 3, "musicallyMotivated": false, "templatedAcrossHits": true } },
+          { "id": "subtle-punch", "label": "subtle camera punch on the vocal hit", "properties": { "effect": "cameraPunch", "fxIntensityRank": 1, "musicallyMotivated": true, "templatedAcrossHits": false } }
+        ],
+        "humanInstructions": [{ "id": "brief:glitch-all-hits", "text": "Current brief: I want a hard glitch on every vocal hit for this one.", "requires": ["glitch-every-hit"] }],
+        "hardConstraints": [], "technical": []
+      }
+    },
+    {
+      "id": "hard-constraint-wins",
+      "title": "A project hard constraint beats a preference; the preference still chooses among what is left",
+      "request": {
+        "projectId": "fixture-rooftop-nightlife", "topic": "arc.energy", "question": "Build into the drop",
+        "context": { "role": "pre_payoff", "payoffImportant": true },
+        "options": [
+          { "id": "stutter-through-drop", "label": "stutter crescendo that runs through the drop", "properties": { "effect": "temporalStutter", "fxIntensityRank": 2, "musicallyMotivated": true, "escalatesIntoPayoff": true, "crossesPayoffReset": true } },
+          { "id": "stutter-into-drop", "label": "stutter crescendo that ends exactly at the drop", "properties": { "effect": "temporalStutter", "fxIntensityRank": 2, "musicallyMotivated": true, "escalatesIntoPayoff": true, "crossesPayoffReset": false } },
+          { "id": "clean", "label": "no build (clean cut into the drop)", "properties": { "effect": "none", "fxIntensityRank": 0, "musicallyMotivated": false, "escalatesIntoPayoff": false, "crossesPayoffReset": false } }
+        ],
+        "humanInstructions": [],
+        "hardConstraints": [{ "id": "hc:clean-drop", "text": "Brief: the drop must start completely clean", "forbids": [{ "all": [{ "property": "crossesPayoffReset", "op": "eq", "value": true }] }] }],
+        "technical": []
+      }
+    },
+    {
+      "id": "technical-qc-wins",
+      "title": "Technical safety beats taste: an artifacted subject effect is removed before preferences are consulted",
+      "request": {
+        "projectId": "fixture-rooftop-nightlife", "topic": "fx.proposal", "question": "Treatment for vocal hit #3",
+        "context": { "role": "hit", "payoffImportant": true },
+        "options": [
+          { "id": "subject-stutter", "label": "subject-isolated stutter (mask QC failed: identity switch)", "properties": { "effect": "subjectStutter", "fxIntensityRank": 1, "musicallyMotivated": true, "subjectIsolated": true, "subjectFxEligibility": "NOT_ELIGIBLE", "maskArtifactVisible": true } },
+          { "id": "frame-repeat", "label": "whole-frame step print", "properties": { "effect": "frameRepeat", "fxIntensityRank": 1, "musicallyMotivated": true, "subjectIsolated": false } }
+        ],
+        "humanInstructions": [], "hardConstraints": [],
+        "technical": [{ "optionId": "subject-stutter", "pass": false, "failing": ["tech:no-unresolved-identity-switch", "tech:subject-fx-quality-gated"] }]
+      }
+    }
+  ],
+  "contradiction": {
+    "decision": {
+      "id": "dec:fixture-rooftop:01", "projectId": "fixture-rooftop-nightlife", "date": "2026-10-01", "decidedBy": "human", "kind": "INSTRUCTION",
+      "subject": "effects on every hit", "direction": "APPROVED", "over": [],
+      "statement": "For this rooftop nightlife edit the same strobe accent on every hit is the look I want.",
+      "quote": "the same strobe accent on every hit is the look I want",
+      "evidence": [{ "kind": "instruction", "ref": "fixture brief", "note": "synthetic" }],
+      "supportingMetrics": [], "relatesTo": []
+    },
+    "learn": {
+      "principle": "principle:templated-fx", "polarity": "PREFERRED",
+      "statement": "For this project, a consistent accent on every hit is the intended look.",
+      "appliesTo": ["fx.proposal", "arc.energy"],
+      "favours": [{ "all": [{ "property": "templatedAcrossHits", "op": "eq", "value": true }] }],
+      "disfavours": []
+    }
+  }
+}

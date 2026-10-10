@@ -1,0 +1,915 @@
+{
+  "$id": "https://bali-music-video-editor.local/schemas/vocal-transcription/1.0.0",
+  "title": "Bali vocal transcription (optional local Whisper timing assist)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "generatedAt": {
+      "type": "string"
+    },
+    "sourceMediaId": {
+      "type": "string"
+    },
+    "sourceFingerprint": {
+      "type": "string"
+    },
+    "analyzedRange": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        },
+        "end": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "additionalProperties": false
+    },
+    "targetWindow": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        },
+        "end": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "den": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "num",
+            "den"
+          ],
+          "additionalProperties": false,
+          "description": "Exact rational number num/den (normalized)."
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "additionalProperties": false
+    },
+    "patternId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "phase2": {
+      "type": "object",
+      "properties": {
+        "analyzerVersion": {
+          "type": "string"
+        },
+        "configHash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "analyzerVersion",
+        "configHash"
+      ],
+      "additionalProperties": false
+    },
+    "engine": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "whisper.cpp"
+        },
+        "version": {
+          "type": "string"
+        },
+        "commit": {
+          "type": "string"
+        },
+        "binary": {
+          "type": "string"
+        },
+        "networkSandbox": {
+          "type": "boolean"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "commit",
+        "binary",
+        "networkSandbox",
+        "args"
+      ],
+      "additionalProperties": false
+    },
+    "model": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "file": {
+          "type": "string"
+        },
+        "sizeBytes": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "file",
+        "sizeBytes",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "language": {
+      "type": "string"
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "windowBars": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "stepBars": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sampleRate": {
+          "type": "number",
+          "const": 16000
+        },
+        "consensusToleranceMs": {
+          "type": "number"
+        },
+        "refinementWindowMs": {
+          "type": "number"
+        },
+        "targetWords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "windowBars",
+        "stepBars",
+        "sampleRate",
+        "consensusToleranceMs",
+        "refinementWindowMs",
+        "targetWords"
+      ],
+      "additionalProperties": false
+    },
+    "cacheKey": {
+      "type": "string"
+    },
+    "windows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^win:\\d{2}$"
+          },
+          "start": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "end": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "startSample16k": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "endSample16k": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          },
+          "anchoredToBarId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "start",
+          "end",
+          "startSample16k",
+          "endSample16k",
+          "anchoredToBarId"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "windowId": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "start": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "end": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          }
+        },
+        "required": [
+          "windowId",
+          "text",
+          "start",
+          "end"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "words": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^asr:\\d{2}:\\d{3}$"
+          },
+          "windowId": {
+            "type": "string"
+          },
+          "rawText": {
+            "type": "string"
+          },
+          "normalized": {
+            "type": "string"
+          },
+          "start": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "end": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "asrConfidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "tokens": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "p": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "text",
+                "p"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "flags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "NON_SPEECH",
+                "REPETITION_LOOP",
+                "TIMESTAMP_COMPRESSED",
+                "WINDOW_EDGE"
+              ]
+            }
+          },
+          "consensusWindows": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "coveringWindows": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "sourceMethod": {
+            "type": "string",
+            "const": "WHISPER"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "UNCONFIRMED",
+              "HIGH_CONFIDENCE",
+              "HUMAN_CONFIRMED",
+              "REJECTED"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "windowId",
+          "rawText",
+          "normalized",
+          "start",
+          "end",
+          "asrConfidence",
+          "tokens",
+          "flags",
+          "consensusWindows",
+          "coveringWindows",
+          "sourceMethod",
+          "state"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "normalizedText": {
+      "type": "string"
+    },
+    "occurrences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^occ:[a-z]+:\\d{5}$"
+          },
+          "target": {
+            "type": "string"
+          },
+          "matchKind": {
+            "type": "string",
+            "enum": [
+              "EXACT",
+              "NEAR"
+            ]
+          },
+          "hearingWordIds": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "asrWords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rawWhisperStart": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "rawWhisperEnd": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "asrConfidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "consensusWindows": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "nearestPhase2Candidate": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "eventId": {
+                    "type": "string"
+                  },
+                  "deltaMs": {
+                    "type": "number"
+                  },
+                  "confidence": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "eventId",
+                  "deltaMs",
+                  "confidence"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nearestOnset": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "eventId": {
+                    "type": "string"
+                  },
+                  "strength": {
+                    "type": "number"
+                  },
+                  "deltaMs": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "eventId",
+                  "strength",
+                  "deltaMs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "refinedSyncTime": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "num": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "den": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "num",
+                  "den"
+                ],
+                "additionalProperties": false,
+                "description": "Exact rational number num/den (normalized)."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "refinedFromEventId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "refinementDeltaMs": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "refinementMethod": {
+            "type": "string",
+            "enum": [
+              "phase2_vocal_attack",
+              "phase2_onset",
+              "none"
+            ]
+          },
+          "beat": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "beatId": {
+                    "type": "string"
+                  },
+                  "barIndex": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "beatInBar": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "offsetMs": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "beatId",
+                  "barIndex",
+                  "beatInBar",
+                  "offsetMs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "refinedConfidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "CONFIRMED_BY_SIGNAL",
+              "HIGH_CONFIDENCE_CANDIDATE",
+              "NEEDS_HUMAN_CONFIRMATION",
+              "REJECTED"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "target",
+          "matchKind",
+          "hearingWordIds",
+          "asrWords",
+          "rawWhisperStart",
+          "rawWhisperEnd",
+          "asrConfidence",
+          "consensusWindows",
+          "nearestPhase2Candidate",
+          "nearestOnset",
+          "refinedSyncTime",
+          "refinedFromEventId",
+          "refinementDeltaMs",
+          "refinementMethod",
+          "beat",
+          "refinedConfidence",
+          "state",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "candidateAssessments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string"
+          },
+          "time": {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "den": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "num",
+              "den"
+            ],
+            "additionalProperties": false,
+            "description": "Exact rational number num/den (normalized)."
+          },
+          "phase2Status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "CONFIRMED_BY_SIGNAL",
+              "HIGH_CONFIDENCE_CANDIDATE",
+              "NEEDS_HUMAN_CONFIRMATION",
+              "REJECTED"
+            ]
+          },
+          "occurrenceId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "overlappingWords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "eventId",
+          "time",
+          "phase2Status",
+          "state",
+          "occurrenceId",
+          "overlappingWords",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "sourceMediaId",
+    "sourceFingerprint",
+    "analyzedRange",
+    "targetWindow",
+    "patternId",
+    "phase2",
+    "engine",
+    "model",
+    "language",
+    "config",
+    "cacheKey",
+    "windows",
+    "segments",
+    "words",
+    "normalizedText",
+    "occurrences",
+    "candidateAssessments",
+    "warnings"
+  ],
+  "additionalProperties": false
+}

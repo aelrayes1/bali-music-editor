@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "sourceRoots": [
+    {
+      "id": "footage",
+      "path": "/path/to/your/footage",
+      "include": ["*/source.mkv", "*.mov", "*.mp4"],
+      "files": []
+    },
+    {
+      "id": "music",
+      "path": "/path/to/your/music",
+      "include": [],
+      "files": ["your-track.wav"]
+    }
+  ]
+}

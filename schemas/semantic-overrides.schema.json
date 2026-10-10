@@ -1,0 +1,440 @@
+{
+  "$id": "https://bali-music-video-editor.local/schemas/semantic-overrides/1.0.0",
+  "title": "Bali semantic overrides (user-authored)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "projectId": {
+      "type": "string"
+    },
+    "overrides": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^usr:"
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "mediaId": {
+                    "type": "string"
+                  },
+                  "shotId": {
+                    "type": "string"
+                  },
+                  "takeId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mediaId"
+                ],
+                "additionalProperties": false
+              },
+              "field": {
+                "type": "string",
+                "const": "identity"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "note": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "target",
+              "field",
+              "value",
+              "date"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^usr:"
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "mediaId": {
+                    "type": "string"
+                  },
+                  "shotId": {
+                    "type": "string"
+                  },
+                  "takeId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mediaId"
+                ],
+                "additionalProperties": false
+              },
+              "field": {
+                "type": "string",
+                "const": "framing"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "extreme_close_up",
+                  "close_up",
+                  "medium_close_up",
+                  "medium",
+                  "medium_wide",
+                  "wide",
+                  "extreme_wide",
+                  "unknown"
+                ]
+              },
+              "note": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "target",
+              "field",
+              "value",
+              "date"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^usr:"
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "mediaId": {
+                    "type": "string"
+                  },
+                  "shotId": {
+                    "type": "string"
+                  },
+                  "takeId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mediaId"
+                ],
+                "additionalProperties": false
+              },
+              "field": {
+                "type": "string",
+                "const": "subjectOrientation"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "front",
+                  "three_quarter",
+                  "profile",
+                  "back",
+                  "mixed",
+                  "unknown"
+                ]
+              },
+              "note": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "target",
+              "field",
+              "value",
+              "date"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^usr:"
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "mediaId": {
+                    "type": "string"
+                  },
+                  "shotId": {
+                    "type": "string"
+                  },
+                  "takeId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mediaId"
+                ],
+                "additionalProperties": false
+              },
+              "field": {
+                "type": "string",
+                "const": "screenDirection"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "left_to_right",
+                  "right_to_left",
+                  "toward_camera",
+                  "away_from_camera",
+                  "none"
+                ]
+              },
+              "note": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "target",
+              "field",
+              "value",
+              "date"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^usr:"
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "mediaId": {
+                    "type": "string"
+                  },
+                  "shotId": {
+                    "type": "string"
+                  },
+                  "takeId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mediaId"
+                ],
+                "additionalProperties": false
+              },
+              "field": {
+                "type": "string",
+                "const": "addTag"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "note": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "target",
+              "field",
+              "value",
+              "date"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^usr:"
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "mediaId": {
+                    "type": "string"
+                  },
+                  "shotId": {
+                    "type": "string"
+                  },
+                  "takeId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mediaId"
+                ],
+                "additionalProperties": false
+              },
+              "field": {
+                "type": "string",
+                "const": "removeTag"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "note": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "target",
+              "field",
+              "value",
+              "date"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^usr:"
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "mediaId": {
+                    "type": "string"
+                  },
+                  "shotId": {
+                    "type": "string"
+                  },
+                  "takeId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mediaId"
+                ],
+                "additionalProperties": false
+              },
+              "field": {
+                "type": "string",
+                "const": "heroCandidate"
+              },
+              "value": {
+                "type": "boolean"
+              },
+              "note": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "target",
+              "field",
+              "value",
+              "date"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^usr:"
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "mediaId": {
+                    "type": "string"
+                  },
+                  "shotId": {
+                    "type": "string"
+                  },
+                  "takeId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "mediaId"
+                ],
+                "additionalProperties": false
+              },
+              "field": {
+                "type": "string",
+                "const": "exclude"
+              },
+              "value": {
+                "type": "boolean"
+              },
+              "note": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "target",
+              "field",
+              "value",
+              "date"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "projectId",
+    "overrides"
+  ],
+  "additionalProperties": false
+}

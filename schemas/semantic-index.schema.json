@@ -1,0 +1,186 @@
+{
+  "$id": "https://bali-music-video-editor.local/schemas/semantic-index/1.0.0",
+  "title": "Bali semantic index (novelty, duplicate groups, continuity candidates)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "media": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "shots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "mediaId": {
+            "type": "string"
+          },
+          "shotId": {
+            "type": "string"
+          },
+          "visualNovelty": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "score",
+              "reasons"
+            ],
+            "additionalProperties": false
+          },
+          "duplicateGroup": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "continuity": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "to": {
+                  "type": "object",
+                  "properties": {
+                    "mediaId": {
+                      "type": "string"
+                    },
+                    "shotId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "mediaId",
+                    "shotId"
+                  ],
+                  "additionalProperties": false
+                },
+                "score": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "match_cut",
+                    "motion_match",
+                    "contrast_cut",
+                    "energy_build",
+                    "sequence_neighbor",
+                    "other"
+                  ]
+                },
+                "motionRelation": {
+                  "type": "string",
+                  "enum": [
+                    "same_direction",
+                    "opposite_direction",
+                    "none"
+                  ]
+                },
+                "framingRelation": {
+                  "type": "string",
+                  "enum": [
+                    "similar",
+                    "tighter",
+                    "wider",
+                    "strong_contrast",
+                    "unknown"
+                  ]
+                },
+                "reasons": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "to",
+                "score",
+                "kind",
+                "motionRelation",
+                "framingRelation",
+                "reasons"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "mediaId",
+          "shotId",
+          "visualNovelty",
+          "duplicateGroup",
+          "continuity"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "duplicateGroups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "mediaId": {
+                  "type": "string"
+                },
+                "shotId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "mediaId",
+                "shotId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "members",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "media",
+    "shots",
+    "duplicateGroups"
+  ],
+  "additionalProperties": false
+}

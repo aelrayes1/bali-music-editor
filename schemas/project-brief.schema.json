@@ -1,0 +1,255 @@
+{
+  "$id": "https://bali-music-video-editor.local/schemas/project-brief/1.0.0",
+  "title": "Bali project brief (future Edit Planner constraints)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "projectId": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "const": "future-acceptance-test"
+    },
+    "status": {
+      "type": "string"
+    },
+    "audio": {
+      "type": "object",
+      "properties": {
+        "mediaId": {
+          "type": "string"
+        },
+        "startEventId": {
+          "type": "string"
+        },
+        "endEventId": {
+          "type": "string"
+        },
+        "approximate": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "mediaId",
+        "startEventId",
+        "endEventId",
+        "approximate"
+      ],
+      "additionalProperties": false
+    },
+    "visualSegments": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^seg:[a-z0-9-]+$"
+          },
+          "description": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "startEventId": {
+            "type": "string"
+          },
+          "endEventId": {
+            "type": "string"
+          },
+          "expected": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "string",
+                "minLength": 2
+              },
+              "end": {
+                "type": "string",
+                "minLength": 2
+              }
+            },
+            "required": [
+              "start",
+              "end"
+            ],
+            "additionalProperties": false
+          },
+          "sourcePool": {
+            "type": "object",
+            "properties": {
+              "rootIds": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "mediaIds": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "exclusive": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "exclusive"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "description",
+          "startEventId",
+          "endEventId",
+          "expected",
+          "sourcePool"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "hardHandoffs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^handoff:[a-z0-9-]+$"
+          },
+          "kind": {
+            "type": "string",
+            "const": "hard_visual_switch"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "expected": {
+            "type": "string",
+            "minLength": 2
+          },
+          "fromSegment": {
+            "type": "string"
+          },
+          "toSegment": {
+            "type": "string"
+          },
+          "mandatory": {
+            "type": "boolean",
+            "const": true
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "eventId",
+          "expected",
+          "fromSegment",
+          "toSegment",
+          "mandatory"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "syncTargets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^sync:[a-z0-9-]+$"
+          },
+          "patternId": {
+            "type": "string"
+          },
+          "occurrenceIds": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "expected": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 2
+            }
+          },
+          "mandatory": {
+            "type": "boolean",
+            "const": true
+          },
+          "effectRepeats": {
+            "type": "object",
+            "properties": {
+              "expected": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 2
+                }
+              },
+              "mandatory": {
+                "type": "boolean",
+                "const": false
+              },
+              "use": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "expected",
+              "mandatory",
+              "use"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "patternId",
+          "occurrenceIds",
+          "expected",
+          "mandatory",
+          "effectRepeats"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "notes": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "projectId",
+    "kind",
+    "status",
+    "audio",
+    "visualSegments",
+    "hardHandoffs",
+    "syncTargets"
+  ],
+  "additionalProperties": false
+}

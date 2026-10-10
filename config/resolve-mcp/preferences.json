@@ -1,0 +1,10 @@
+{
+  "destructive": {
+    "safe_mode": true,
+    "require_confirm_token": true,
+    "audit_log": true,
+    "audit_log_path": ".resolve-mcp/logs/security-audit.jsonl",
+    "operation_log": true,
+    "operation_log_path": ".resolve-mcp/logs/operation-log.jsonl"
+  }
+}
