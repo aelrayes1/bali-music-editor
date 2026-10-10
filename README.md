@@ -15,12 +15,13 @@ short-form platforms.
 > project data such as media, analysis records or edit plans. The example videos below show the
 > broader project workflow and can't be reproduced from this repository alone.
 
-## How the project is used
+## How the example videos were made
 
-Claude Code, connected to DaVinci Resolve through its MCP integration, helped edit and colour
-grade footage from longer-form clips and align the edits to the music. Lyrics and hooks were added
-afterward in CapCut for a more platform-native feel. Lyric-overlay rendering is not part of this
-public snapshot.
+- **Edit and grade:** Claude Code, connected to DaVinci Resolve through its MCP integration, helped
+  edit and colour grade footage from longer-form clips and align the edits to the music.
+- **Lyrics and hooks:** added afterward in CapCut for a more platform-native feel.
+- **Lyric overlays in the broader editor:** the broader Bali Music Editor can also add lyric
+  overlays. Lyric-overlay rendering is **not** included in this public snapshot.
 
 ## Example videos
 
@@ -36,19 +37,84 @@ HEVC .mov files may not play inline in every browser. Use **View raw** or downlo
 
 > These videos are examples created with the Bali Music Editor from longer-form footage. Claude Code, connected to DaVinci Resolve through its MCP integration, helped edit and color grade the footage and align the edits to the music. I added lyric and hook overlays in CapCut afterward for a more platform-native finish; lyric overlays can also be added within the editor. The public repository is a sanitized code sample of reusable components and does not include the complete end-to-end planner and rendering pipeline.
 
-## What is in this snapshot
+## Public code vs. the broader project
 
-| Project capability | In this repository |
-|---|---|
-| Music analysis (tempo, beats, downbeats, structure, drops, vocal attacks) | Yes |
-| Visual analysis (shot boundaries, motion, sharpness, on-device faces, people and saliency) | Yes |
-| Finding useful moments (per-shot metrics, novelty and duplicate index, continuity candidates) | Yes: analysis and ranking signals. Automatic shot selection: no (planner not included) |
-| Music-synchronised edits | Partly: effects anchor to music events with frame-exact snapping. The cut planner and timeline renderer are not included |
-| Vertical (9:16) reframing | Yes: subject guardrail, bounded reframe proposals, crop options |
-| Colour grading | Yes: CDL shot statistics and matching solver, highlight bloom with a DaVinci Resolve DCTL |
-| Creative variations | Partly: effect presets at several intensities, the `CLEAN_TO_CHAOS` escalation, subject-isolated stutter. Multi-candidate edit generation is not included |
+What the code in this repository provides, and what stays in the broader private project. The
+example workflow is described above.
 
-## Capabilities in this snapshot
+| Capability | Public code (this repo) | Not in this repo |
+|---|---|---|
+| Music analysis (tempo, beats, structure, drops, vocal attacks) | Yes | — |
+| Visual analysis (shots, motion, sharpness, on-device faces / people / saliency) | Yes | — |
+| Finding useful moments | Analysis and ranking signals (per-shot metrics, novelty / duplicate index) | Automatic shot selection (edit planner) |
+| Music-synchronised editing | Effects anchored to music events with frame-exact snapping | Cut planner, render-spec compiler, timeline conform |
+| Vertical (9:16) reframing | Subject guardrail, bounded reframe proposals, crop options | Applying crops in a finished render |
+| Colour grading | CDL shot statistics and matching solver; highlight bloom with a DaVinci Resolve DCTL | Resolve project automation |
+| Creative variations | Effect presets at several intensities, `CLEAN_TO_CHAOS`, subject-isolated stutter | Multi-candidate edit generation, critic / revision loop |
+| Lyric and hook overlays | No | Lyric-overlay rendering (broader editor); the examples used CapCut |
+
+## Architecture of the public snapshot
+
+Arrows are verified imports, tool calls or data flows in this repository. The greyed box lists
+stages of the broader project that are **not** included here.
+
+```mermaid
+flowchart LR
+  SRC[/"Your footage and music<br/>(local, not included)"/] --> INGEST["ingest<br/>src/media"]
+  INGEST --> MANIFEST[("analysis/media-manifest.json")]
+  MANIFEST --> MUSIC["Music analysis<br/>src/music"]
+  MUSIC <--> VOCAL["Vocal timing assist<br/>src/vocal (optional whisper.cpp)"]
+  MANIFEST --> FOOTAGE["Footage analysis<br/>src/footage"]
+  FOOTAGE --> SEMANTIC["Semantic shots + index<br/>src/semantic"]
+  VISION["native/vision-shots<br/>(Swift, Apple Vision)"] --> SEMANTIC
+  MUSIC -. "anchor by music-event ID" .-> FX["FX library<br/>src/fx"]
+  FX --> SUBJECT["Subject-isolated FX<br/>src/fx/subject"]
+  MASKS["native/subject-masks<br/>(Swift, Apple Vision)"] --> SUBJECT
+  SUBJECT --> COMPOSE["9:16 composition guardrail<br/>src/compose + crop options"]
+  FX --> REMOTION["Remotion compositions<br/>remotion/"]
+  GRADE["Grade + bloom<br/>src/grade"] --> DCTL[/"DaVinci Resolve DCTL"/]
+  HARDEN["Hardening + Edit Plan validator<br/>src/hardening"] --> PLANSCHEMA["Edit Plan schema<br/>src/plan/schema.ts"]
+
+  subgraph EXCLUDED["Not in this repository"]
+    PLANNER["Edit planner"]
+    RENDER["Render-spec compiler + conform"]
+    CRITIC["Critic / revision loop"]
+    DELIVERY["Delivery packaging"]
+  end
+  style EXCLUDED fill:#f3f3f3,stroke:#999,stroke-dasharray: 5 5
+```
+
+## How to reproduce
+
+**What a reviewer can run with this repository.** All commands are package scripts. First run
+the [Setup](#setup) steps (`npm ci`, `doctor`, `config/sources.local.json`, `ingest`), then:
+
+```bash
+npm run typecheck && npm test && npm run test:acceptance   # no media needed
+
+# Analyse your own media (media IDs are listed by `npm run ingest`)
+npm run analyze-footage -- --all                 # -> analysis/footage/
+npm run contact-sheet -- --media <videoMediaId>  # -> cache/frames/
+
+# Music analysis needs a small project config naming the track's media ID:
+#   projects/<name>/music-analysis.config.json  ->  {"schemaVersion": 1, "mediaId": "<audioMediaId>"}
+npm run analyze-music -- --project projects/<name>/music-analysis.config.json   # -> analysis/music/
+```
+
+Optional, with extra local setup:
+- `npm run build:vision` then `npm run analyze-semantics -- --all`: macOS with Xcode command-line tools.
+- `npm run transcribe-vocals -- --project …`: a local whisper.cpp build and model, plus a
+  `vocalAssist` block in the project config.
+
+**Needs data that is not in this repository:** `npm run style` (private style memory) and the
+Resolve MCP wiring (`.mcp.json`).
+
+**Why the example videos can't be reproduced end to end here:**
+- the source footage and music aren't included
+- the planner and renderer stages that turn analysis into a cut aren't part of this snapshot
+- the examples were edited and graded in DaVinci Resolve, with lyric overlays added in CapCut
+
+## Module reference
 
 | Area | What it does | Code |
 |---|---|---|
@@ -62,7 +128,7 @@ HEVC .mov files may not play inline in every browser. Use **View raw** or downlo
 | **Grade** | ASC CDL shot statistics with a restrained matching solver, and a highlight-selective bloom that generates a DaVinci Resolve DCTL plus a bit-matched offline twin. | `src/grade` |
 | **Hardening** | Atomic writes, a disk-headroom policy, exact frame-timing, audio-sync, colour-tag and orientation checks, and an Edit Plan validator with coded issues. | `src/hardening` |
 | **Style memory** | A preference engine with scoping rules: one project's taste never leaks into another, and general preferences need explicit statements or repeated evidence. | `src/style`, `npm run style` |
-| **Renderer layer** | Remotion compositions that play resolved effects and plan clips, making no creative decisions. | `remotion/` |
+| **Renderer layer** | Remotion compositions (clean-edit playback and effects) and a render driver, making no creative decisions. Their inputs (conformed clips and render props) come from the excluded planner/conform stage, so they don't render a finished edit on their own. | `remotion/` |
 | **Environment check** | `npm run doctor`: a read-only report of tools, codecs, disk and optional integrations. | `src/cli/doctor.ts` |
 
 All records are validated with zod. `schemas/` holds the exported JSON Schemas; regenerate them
