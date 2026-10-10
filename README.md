@@ -1,19 +1,38 @@
 # Bali Music Editor
 
-The analysis and effects engine behind an AI-assisted music-video editor. It turns local source
-footage and a music track into deterministic, schema-validated analysis records, then builds
-music-anchored visual effects on top of them. Creative decisions stay with a human: the engine
-measures, proposes and verifies.
+Bali Music Editor is an AI-assisted toolkit for making short-form music videos. It analyses a
+song and a pool of longer-form footage, finds usable moments, and helps build edits that land on
+the music. A person stays in charge of every creative choice; the software measures, proposes
+and checks.
 
-> **About this repository.** This is a public review snapshot of a private working repository.
-> Two kinds of material were removed:
->
-> - project-specific modules: the edit planner, the render-spec compiler, the critic/revision loop,
->   the delivery packager and the per-project finishing tools
-> - all project data: media, analysis records, edit plans and approvals
->
-> Everything here is the reusable engine, and it installs and tests on its own.
-> There are no media files in this repository, and none are needed to run the tests.
+**Intended use.** Helping artists and label marketing teams turn longer-form footage (live sets,
+studio sessions, behind-the-scenes and phone footage) into vertical, music-synchronised clips for
+short-form platforms.
+
+> **Status: sanitized code sample.** This public repository contains the reusable components of
+> a larger private project. It does **not** include the complete end-to-end planner and rendering
+> pipeline (edit planner, render-spec compiler, critic/revision loop, delivery packaging), or any
+> project data such as media, analysis records or edit plans. Project work made with the full
+> workflow can't be reproduced from this repository alone.
+
+## How the project is used
+
+Claude Code, connected to DaVinci Resolve through its MCP integration, helped edit and colour
+grade footage from longer-form clips and align the edits to the music. Lyrics and hooks were added
+afterward in CapCut for a more platform-native feel. Lyric-overlay rendering is not part of this
+public snapshot.
+
+## What is in this snapshot
+
+| Project capability | In this repository |
+|---|---|
+| Music analysis (tempo, beats, downbeats, structure, drops, vocal attacks) | Yes |
+| Visual analysis (shot boundaries, motion, sharpness, on-device faces, people and saliency) | Yes |
+| Finding useful moments (per-shot metrics, novelty and duplicate index, continuity candidates) | Yes: analysis and ranking signals. Automatic shot selection: no (planner not included) |
+| Music-synchronised edits | Partly: effects anchor to music events with frame-exact snapping. The cut planner and timeline renderer are not included |
+| Vertical (9:16) reframing | Yes: subject guardrail, bounded reframe proposals, crop options |
+| Colour grading | Yes: CDL shot statistics and matching solver, highlight bloom with a DaVinci Resolve DCTL |
+| Creative variations | Partly: effect presets at several intensities, the `CLEAN_TO_CHAOS` escalation, subject-isolated stutter. Multi-candidate edit generation is not included |
 
 ## Capabilities in this snapshot
 
@@ -107,6 +126,16 @@ What the tests cover, and what they need:
 - **Vocal assist:** whisper.cpp is optional and treated as evidence only. It never moves or deletes
   a sync point.
 - **Status:** internal tool, no stable public API. Interfaces may change.
+
+## Built with
+
+- TypeScript on Node.js (≥ 24, native type stripping) with [zod](https://zod.dev) schemas
+- FFmpeg / ffprobe for decoding, probing and test-media generation
+- Swift with Apple Vision (on-device semantic analysis and person masks)
+- [Remotion](https://www.remotion.dev) and React for the renderer layer
+- whisper.cpp (optional, local vocal timing assist)
+- DaVinci Resolve: DCTL generation, plus a read-only check of the Resolve MCP setup in `npm run doctor`
+- Claude Code (development and the editing workflow described above)
 
 ## License
 
